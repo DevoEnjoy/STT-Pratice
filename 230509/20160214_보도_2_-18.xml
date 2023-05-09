@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<annotation>
+  <folder>/data/nfs/wyd/script_exist_data/</folder>
+  <filename>20160214_보도_2_</filename>
+  <filename_origin>20160214_보도_2_.mp4</filename_origin>
+  <starttime_origin>400.375461</starttime_origin>
+  <endtime_origin>404.012363</endtime_origin>
+  <text>오늘 같은 기쁜 날에 한 번 나도 나서서</text>
+  <duration>3.6369020000000205</duration>
+  <label>
+    <starttime>0.0</starttime>
+    <endtime>0.24</endtime>
+    <word>오늘</word>
+    <stt_word> </stt_word>
+  </label>
+  <label>
+    <starttime>0.24</starttime>
+    <endtime>0.53</endtime>
+    <word>같은</word>
+    <stt_word> </stt_word>
+  </label>
+  <label>
+    <starttime>0.57</starttime>
+    <endtime>0.84</endtime>
+    <word>기쁜</word>
+    <stt_word> </stt_word>
+  </label>
+  <label>
+    <starttime>0.84</starttime>
+    <endtime>1.13</endtime>
+    <word>날에</word>
+    <stt_word> </stt_word>
+  </label>
+  <label>
+    <starttime>1.13</starttime>
+    <endtime>1.25</endtime>
+    <word>한</word>
+    <stt_word> </stt_word>
+  </label>
+  <label>
+    <starttime>1.29</starttime>
+    <endtime>1.52</endtime>
+    <word>번</word>
+    <stt_word> </stt_word>
+  </label>
+  <label>
+    <starttime>1.55</starttime>
+    <endtime>1.97</endtime>
+    <word>나도</word>
+    <stt_word> </stt_word>
+  </label>
+  <label>
+    <starttime>2.84</starttime>
+    <endtime>3.25</endtime>
+    <word>나서서</word>
+    <stt_word> </stt_word>
+  </label>
+</annotation>
