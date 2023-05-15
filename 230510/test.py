@@ -1,5 +1,33 @@
 # test.py
-import cv2
+class CvCap:
+    import cv2
+
+    cap = cv2.VideoCapture()
+    width = int()
+    height = int()
+    hog = cv2.HOGDescriptor()
+    hogParams = {
+        "winStride": (8, 8),
+        "padding": (32, 32),
+        "scale": 1.05,
+        "hitThreshold": 0,
+        "finalThreshold": 5,
+    }  # 파라미터 설정
+
+    def __init__(self, videoFile):
+        self.cap = self.cv2.VideoCapture(videoFile)
+        self.width = int(cap.get(self.cv2.CAP_PROP_FRAME_WIDTH))
+        self.height = int(cap.get(self.cv2.CAP_PROP_FRAME_HEIGHT))
+        self.hog = self.cv2.HOGDescriptor()  # 객체
+
+    def setHogParams(self, winStride, padding, scale, hitThreshold, finalThreshold):
+        self.hogParams["winStride"] = winStride
+        self.hogParams["padding"] = padding
+        self.hogParams["scale"] = scale
+        self.hogParams["hitThreshold"] = hitThreshold
+        self.hogParams["finalThreshold"] = finalThreshold
+
+    
 
 print("타임랩스 생성 시작")
 

@@ -1,4 +1,5 @@
 # xml_generator.py
+import os
 from xml.etree.ElementTree import Element, dump, indent
 class Data_generator:
     label = Element("label")
@@ -69,6 +70,41 @@ class Xml_generator:
 # annotation = Element("annotation")
 # folder = Element("folder")
 # folder.text = "/data/nfs/wyd/script_exist_data/"
+# E20200904_00001_audio
+file_path = "D:/practicePlace/workbench/label/"
+file_list = os.listdir(file_path)
+
+for i in range(len(file_list)): #label.txt 파일 하나의 정보
+    readFileName = file_list[i]
+    readFileNameWithoutExt = readFileName.split('.')
+    # year = readFileName[1:5]
+    # month = readFileName[5:9]
+    numbering = readFileName[10:15]
+    readFile = open(file_path + "/" + readFileName, 'r')
+    readlines = readFile.readlines()
+    readlineList = list()
+    lineData = list()
+    textList = list()
+    j = 0
+    for line in readlines: # 파일 내용 한 줄씩 가져오기
+        readlineList.append(line)
+        lineData.append(line.split('\t'))
+        if 'text' in lineData[j][2]:
+            text = lineData.pop(j)
+            textList.append(text)
+        if ''
+        # dif = float(lineData[i][1]) - float(lineData[i][0])
+        # if dif > largest:
+        #     largest = i
+        j = j + 1
+    # totalLength = lineData.pop(largest)
+
+
+
+
+    # readFile = open("D:/result/" year "/" month "/")
+
+
 data1 = Data_generator("0.0", "0.24", "오늘")
 data1.label_generate()
 
@@ -76,7 +112,7 @@ datas = list()
 datas.append(data1)
 datas.append(data1)
 datas.append(data1)
-xml = Xml_generator("/data/nfs/wyd/script_exist_data/", "20160214_보도_2_", "20160214_보도_2_.mp4", "400.375461", "404.012363", "오늘 같은 기쁜 날에 한 번 나도 나서서", "3.6369020000000205", datas)
+xml = Xml_generator("D:/source/new/04", "20160214_보도_2_", "20160214_보도_2_.mp4", "400.375461", "404.012363", "오늘 같은 기쁜 날에 한 번 나도 나서서", "3.6369020000000205", datas)
 
 xml.append_labels(datas)
 indent(xml.annotation)
