@@ -1,4 +1,6 @@
 from docx import Document
+import os
+from common import strip_quotes
 
 def read_tables_from_docx(file_path):
     doc = Document(file_path)
@@ -7,40 +9,41 @@ def read_tables_from_docx(file_path):
     for table in doc.tables:
         rows = []
         for row in table.rows:
-            # 행에 셀이 있는 경우에는 셀의 데이터를 가져오고,
-            # 행에 셀이 없는 경우에는 행 전체의 텍스트만 가져옴
             if len(row.cells) >= 2:
                 cells = [row.cells[0].text, row.cells[1].text]
                 rows.append(cells)
             else:
                 rows.append([cell.text for cell in row.cells])
-                # "방송일지" 단어를 확인하여 파일을 나눔
                 if any("방송일지" in cell.text for cell in row.cells):
                     if current_table:
                         tables.append(current_table)
                     current_table = []
         current_table.append(rows)
-    tables.append(current_table)  # 마지막 테이블 추가
+    tables.append(current_table)
     return tables
 
-def write_tables_to_txt(tables, file_prefix):
-    file_counter = 1
+def write_tables_to_txt(tables, file_path, suffix):
+    file_directory, file_name = os.path.split(file_path)
+    folder_name = os.path.splitext(file_name)[0]
+
+    # 경로설정 : 기본경로/2020/09/최종출력물
+    new_folder_path = os.path.join(file_directory, folder_name[:4], folder_name[4:])
+    os.makedirs(new_folder_path, exist_ok=True)
+
+    # 파일명으로 삼을 행의 정보를 구분할 키워드
+    keyword = "방송일지"
     for table in tables:
         for rows in table:
             for row in rows:
-                # "방송일지"라는 단어가 포함된 행의 텍스트를 확인하고 파일명 추출
-                if any("방송일지" in cell for cell in row):
+                if any(keyword in cell for cell in row):
                     for cell in row:
-                        if "방송일지" in cell:
-                            # 파일명으로 사용할 문자열 추출
-                            date_string = cell.split("방송일지")[1].strip()
-                            txt_file = f'C:/Users/user/Desktop/list/{date_string}.txt'
+                        if keyword in cell:
+                            date_string = cell.split(keyword)[1].strip()
+                            txt_file = os.path.join(new_folder_path, f'{date_string}_{suffix}.txt')
                             with open(txt_file, 'w', encoding='utf-8') as file:
                                 for rows in table:
                                     file.write("\n")
                                     for row in rows:
-                                        # 행에 셀이 있는 경우에는 탭으로 구분하여 출력하고,
-                                        # 행에 셀이 없는 경우에는 텍스트만 출력
                                         if len(row) == 2:
                                             row_text = '\t'.join(row)
                                         else:
@@ -48,16 +51,13 @@ def write_tables_to_txt(tables, file_prefix):
                                         file.write(row_text + '\n')
                                     file.write('\n')
                     break
-        file_counter += 1
 
-# .docx 파일 경로
-docx_file = input()
+    return new_folder_path
 
-# 표를 읽어옴
-table_data = read_tables_from_docx(docx_file)
+def run(docx_file, suffix):
+    return write_tables_to_txt(read_tables_from_docx(docx_file), docx_file, suffix)
 
-# 파일 분할하여 저장
-file_prefix = "방송일지"
-write_tables_to_txt(table_data, file_prefix)
-
-print("표가 성공적으로 출력되었습니다.")
+if __name__ == "__main__":
+    docx_file = strip_quotes(input("Enter the .docx file path: "))
+    output_folder = write_tables_to_txt(read_tables_from_docx(docx_file), docx_file)
+    print(f"표가 성공적으로 출력되었습니다. 폴더 경로: {output_folder}")
