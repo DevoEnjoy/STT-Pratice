@@ -10,6 +10,8 @@ def get_directory_from_path(file_path):
     return os.path.dirname(file_path)
 
 def merging(video_file_path):
+    standard_file_name = get_directory_from_path(video_file_path) + "/" + get_filename_without_extension(video_file_path)[:14]
+
     # VLC 인스턴스 생성
     vlc_instance = vlc.Instance()
 
@@ -17,9 +19,7 @@ def merging(video_file_path):
     player = vlc_instance.media_player_new()
 
     # 비디오 파일 로드
-    media = vlc_instance.media_new_path(video_file_path)
-
-    standard_file_name = get_directory_from_path(video_file_path) + "/" + get_filename_without_extension(video_file_path)[:14]
+    media = vlc_instance.media_new_path(standard_file_name + "_video.mp4")
 
     # 음성 파일 로드
     audio = vlc_instance.media_new_path(standard_file_name + "_audio.mp3")
@@ -84,7 +84,7 @@ def combine_video_audio(video_file, audio_file, output_file):
 # combine_video_audio("video.mp4", "audio.mp3", "output.mp4")
 
 
-arg1 = sys.argv[1]
+arg1 = "D:/source/new/10월/07/E20201007_00010_video.mp4"
 # 합치기 실행
 merging(arg1)
 
