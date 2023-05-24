@@ -84,7 +84,8 @@ def combine_video_audio(video_file, audio_file, output_file):
 # combine_video_audio("video.mp4", "audio.mp3", "output.mp4")
 
 
-arg1 = "D:/source/new/10월/07/E20201007_00010_video.mp4"
+arg1 = "D:/source/new/10월/20/E20201020_00003_video.mp4"
+arg1 = "D:/source/new/10월/21/E20201021_00002_video.mp4"
 # 합치기 실행
 merging(arg1)
 

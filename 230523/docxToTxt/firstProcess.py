@@ -1,3 +1,14 @@
+# firstProcess.py
+# docx파일을 단순 txt 파일로 출력
+# 폴더 경로 설정까지 작업.
+""" 결과 예시
+
+방송일지                                                              2020년 10월 1일
+
+
+시간	내                        용
+09:00	※ 방송시작 ( 위성파 - 수신양호 )
+"""
 from docx import Document
 import os
 from common import strip_quotes
@@ -22,7 +33,7 @@ def read_tables_from_docx(file_path):
     tables.append(current_table)
     return tables
 
-def write_tables_to_txt(tables, file_path, suffix):
+def write_tables_to_txt(tables, file_path, suffix="first"):
     file_directory, file_name = os.path.split(file_path)
     folder_name = os.path.splitext(file_name)[0]
 
