@@ -20,6 +20,26 @@ def read_tables_from_docx(file_path):
     for table in doc.tables:
         rows = []
         for row in table.rows:
+            if len(row.cells) >= 5:
+                cells = [row.cells[0].text, row.cells[1].text, row.cells[2].text, row.cells[4].text]
+                rows.append(cells)
+            else:
+                rows.append([cell.text for index, cell in enumerate(row.cells) if index in [0, 1, 2, 4]])
+                if any("방송일지" in cell.text for cell in row.cells):
+                    if current_table:
+                        tables.append(current_table)
+                    current_table = []
+        current_table.append(rows)
+    tables.append(current_table)
+    return tables
+
+def read_table_at_all(file_path):
+    doc = Document(file_path)
+    tables = []
+    current_table = []
+    for table in doc.tables:
+        rows = []
+        for row in table.rows:
             if len(row.cells) >= 2:
                 cells = [row.cells[0].text, row.cells[1].text]
                 rows.append(cells)

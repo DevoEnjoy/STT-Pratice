@@ -39,7 +39,7 @@ class TextFileProcessor:
         for line in lines:
             stripped_line = line.strip()
             if stripped_line and any(char.isdigit() for char in stripped_line):
-                processed_line = strip_tab(stripped_line)
+                processed_line = stripped_line.replace('  ', ' ').replace('\t\t', '\t')
                 processed_lines.append(processed_line)
 
         with open(output_filename, 'w', encoding='utf-8') as file:
